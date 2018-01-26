@@ -1,0 +1,7 @@
+---
+dataset:
+  name: ImageNetVID
+  sets: 15_val+17_val
+  root_dir: /slwork/VID/ILSVRC
+
+---
