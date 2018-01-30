@@ -1,7 +1,8 @@
 ---
 dataset:
   name: ImageNetVID
-  sets: 15_val+17_val
+  num_class: 31
+  sets: 15_val
   root_dir: /slwork/VID/ILSVRC
-
----
+  shuffle: True
+  batch_size: 1

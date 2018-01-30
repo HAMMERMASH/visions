@@ -1,24 +1,27 @@
 # An imdb class designed for training and testing detection networks
 # keep track of image paths and information
 
-class IMDB:
+class IMDB(object):
 
   def __init__(self, cfg):
     
-    self._name = cfg['dataset']['name']
+    dataset = cfg['dataset']
+    self._name = dataset['name']
     self._set = [] 
-    
-    parse_set_names(cfg['dataset']['sets'])
-
-    self._root_dir = cfg['root_dir']
-
-    self._num_cls = cfg['num_class']
-    self._num_classes = cfg['num_class']
+    self._parse_set_names(dataset['sets'])
+    self._root_dir = dataset['root_dir']
+    self._num_cls = dataset['num_class']
+    self._shuffle = dataset['shuffle']
+    self._batch_size = dataset['batch_size']
+    self._cur = 0
   
-  def _read_dataset():
+  def _read_dataset(self):
     raise NotImplementedError
 
-  def parse_set_names(set_names):
+  def _parse_annotation(self, anno_path):
+    raise NotImplementedError
+
+  def _parse_set_names(self, set_names):
     """
       parse dataset names
       names should be arranged in one string i.e. 15_val+17_val

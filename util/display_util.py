@@ -23,9 +23,9 @@ class Processbar():
         
         if self.process > self.max_process:
             self.process = self.max_process
-        progress = int(self.process / self.max_process * self.length)
+        progress = int(self.process*1.0 / self.max_process * self.length)
         bar = '[' + '>' * progress + ' ' * (self.length - progress) + ']' +\
-            str(self.process / self.max_process * 100)[:4] + '%' + '\r'
+            str(self.process*1.0 / self.max_process * 100)[:4] + '%' + '\r'
         sys.stdout.flush()
         sys.stdout.write(bar)
         
@@ -59,7 +59,6 @@ def show_from_array(image,image_dir = None,name = 'No name'):
 
 def draw_bbox(image,boxes,classes):
     
-    classes = str(classes)
     boxes = boxes.astype('int')
     for i in range(boxes.shape[0]):
         
@@ -70,12 +69,12 @@ def draw_bbox(image,boxes,classes):
         cv2.rectangle(overlay, (box[0], box[1]), (box[2],box[3]), color, 2)
         font = cv2.FONT_HERSHEY_SIMPLEX
         font_size = cv2.getTextSize(classes[i],font,0.5,2)
-        print(font_size)
+        # print(font_size)
         cv2.rectangle(overlay,(box[0],box[1] - font_size[0][1]),(box[2],box[1]),color,-1)
         #cv2.putText(overlay,'OpenCV',(50,50), font, 0.5,(255,255,255),2,cv2.LINE_AA)
         # (3) blend with the original:
         opacity = 0.5
         cv2.addWeighted(overlay, opacity, image, 1 - opacity, 0, image)
         cv2.putText(image,classes[i],(box[0],box[1]),font,0.5,(255,255,255),1,cv2.LINE_AA)
-
-    show_from_array(image)
+    return image
+    # show_from_array(image)
